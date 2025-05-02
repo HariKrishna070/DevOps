@@ -1,0 +1,5 @@
+fastapi
+typing
+pydantic
+uvicorn
+pymongo
