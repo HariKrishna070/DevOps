@@ -1,43 +1,43 @@
-# DevOps
+# DevOps Documentation
 
-🗺️ Application Architecture Map
+## Application Architecture
 
-[Frontend (gradio)] 
-        |
-        | HTTP Requests (REST API)
-        ↓
-[Backend Application (FastAPI)]
-        |
-        | MongoDB Driver (pymongo)
-        ↓
-[MongoDB Database (Docker image)]
-        ↑
-        |
-[Mongo Express (Docker image - Admin Interface)]
+```mermaid
+graph TD
+    A[Frontend - Gradio] -->|HTTP Requests/REST API| B[Backend - FastAPI]
+    B -->|MongoDB Driver/pymongo| C[MongoDB Database - Docker]
+    D[Mongo Express - Docker] -->|Admin Interface| C
+```
 
-🔗 Component Connections Summary:
-Frontend ➝ Backend
+### Component Connections
 
-Frontend makes HTTP calls to your backend to send or retrieve data.
+| Connection | Description |
+|------------|-------------|
+| **Frontend → Backend** | Frontend makes HTTP calls to the backend to send or retrieve data via REST API |
+| **Backend → MongoDB** | The backend uses a MongoDB client library (pymongo) to perform database operations |
+| **Mongo Express → MongoDB** | Mongo Express provides a web-based admin panel connected directly to the MongoDB database |
 
-Backend ➝ MongoDB
+## Docker Configuration
 
-The backend uses a MongoDB client library to perform database operations.
+The application is containerized using Docker with separate Dockerfiles for each component:
 
-Mongo Express ➝ MongoDB
+- Separate Dockerfile for backend application
+- Separate Dockerfile for frontend application
+- Docker Compose file to orchestrate and run both frontend and backend services
 
-Mongo Express provides a web-based admin panel connected directly to the MongoDB database.
+## Kubernetes Configuration
 
-## Docker
+Kubernetes is used for orchestration with the following configuration files:
 
-created saperate docker files for backend and frontend application 
+### Secret Management
+- Secret configuration file for maintaining sensitive information
 
-written docker compose file to manage and run both frontend and backend
+### Application Management
+- Configuration files for general application settings
 
-## Kubernetes
-
-create secret configuration file for maintaining secrets
-
-created configuration files to manage applications
-
-created deployment and service file for frontend, backend, mongodb and mongo-express
+### Deployments and Services
+- Deployment and Service files for:
+  - Frontend application
+  - Backend application
+  - MongoDB database
+  - Mongo Express admin interface
